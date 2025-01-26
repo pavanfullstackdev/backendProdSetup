@@ -100,5 +100,51 @@ Specifies which files or directories to ignore when formatting.
 
 `.prettierignore`: 
 Specifies which files or directories to ignore when formatting. 
+# Database Connection Steps
 
+1. Open [mongodb.com](https://www.mongodb.com/)
+2. Log in
+3. Create a new project
+4. Name your new project
+5. Click on "Next" and then click "Create Project"
+6. Click on "Create Cluster"
+7. Choose the free cluster
+8. Choose the nearest AWS region (e.g., Mumbai)
+9. Click on "Create Deployment"
+10. Add the current IP address or allow access from anywhere
+11. Type a username and password (do not use any special characters in the password)
+12. Click on "Create DB User"
+13. Click on "Choose a Connection Method"
+14. Choose any one connection method
+15. Copy the connection string
 
+This is how we create a MongoDB database so that we can now connect it from our codebase.
+
+# Steps to Integrate the MongoDB URL and Run Our Server
+
+1. In the `.env` file, define our `PORT` and `MONGODB_URI`:
+    ```env
+    PORT=3000
+    MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/<dbname>?retryWrites=true&w=majority
+    ```
+2. Create a constant in `constant.js` file for the database name:
+    ```javascript
+    export const DB_NAME = 'your_database_name';
+    ```
+3. Install necessary packages:
+    ```sh
+    npm install dotenv mongoose express
+    ```
+4. Connect to the database in `index.js` and `dbindex.js`:
+   
+5. Use Express in `app.js`:
+6. Install additional packages:
+    ```sh
+    npm install cors cookie-parser
+    ```
+
+7. Run the server:
+    ```sh
+    npm run dev
+    ```
+    
