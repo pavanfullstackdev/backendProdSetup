@@ -3,13 +3,19 @@
   "version": "1.0.0",
   "description": "This is the basic setup for all MERN stack apps.",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon -r dotenv/config  --experimental-json-modules src/index.js"
   },
   "keywords": [
     "Backend",
     "MERN"
   ],
   "author": "Pavan Birari",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.9",
+    "prettier": "^3.4.2"
+  }
 }
