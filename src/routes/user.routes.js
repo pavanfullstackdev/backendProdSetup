@@ -4,6 +4,7 @@ import {
   loginUser,
   logoutUser,
   refereshAccessToken,
+  getCurrentUser,
 } from "../controllers/user.controller.js"; // Import the registerUser controller
 import { upload } from "../middlewares/multer.middleware.js"; // Import the Multer middleware
 import { verifyJWT } from "../middlewares/auth.middleware.js";
@@ -24,5 +25,6 @@ router.route("/login").post(loginUser); // Define a route for user login
 
 router.route("/logout").post(verifyJWT, logoutUser);
 router.route("/refresh-token").post(refereshAccessToken);
+router. route("/get-user").get(verifyJWT, getCurrentUser);
 
 export default router; // Export the router for use in other parts of the application
