@@ -7,7 +7,6 @@ import jwt from "jsonwebtoken";
 
 const registerUser = asyncHandler(async (req, res) => {
   const { username, email, password } = req.body;
-  console.log(req.body,'p1');
 
   if (!username || !email || !password) {
     throw new ApiError(400, "Please provide all required fields");

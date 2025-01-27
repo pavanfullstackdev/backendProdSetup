@@ -1,30 +1,34 @@
-//universal for all projects
+// This file handles uploading files to Cloudinary and removing local files after upload.
+
+// Import Cloudinary library
 import { v2 as cloudinary } from "cloudinary";
+// Import file system module
 import fs from "fs";
 
+// Configure Cloudinary with environment variables
 cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRETE,
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME, // Cloudinary cloud name
+  api_key: process.env.CLOUDINARY_API_KEY, // Cloudinary API key
+  api_secret: process.env.CLOUDINARY_API_SECRETE, // Cloudinary API secret
 });
 
+// Function to upload a file to Cloudinary
 const uploadOnCloudinary = async (localFilePath) => {
-    try {
-        if (!localFilePath) return null
-        //upload the file on cloudinary
-        const response = await cloudinary.uploader.upload(localFilePath, {
-            resource_type: "auto"
-        })
-        //unlink once uploaded
-        fs.unlinkSync(localFilePath)
-        //file has been uplaoded successfull
-        return response
-    } catch (err) {
-        //how to remove the file if fiel is not uploaded then unlink it means delete it from local server
-        fs.unlinkSync(localFilePath) //remove the localy temprory file 
-        return null
+  try {
+    if (!localFilePath) return null; // Return null if no file path is provided
+    // Upload the file to Cloudinary
+    const response = await cloudinary.uploader.upload(localFilePath, {
+      resource_type: "auto", // Automatically detect the file type
+    });
+    // Remove the local file after upload
+    fs.unlinkSync(localFilePath);
+    // Return the Cloudinary response
+    return response;
+  } catch (err) {
+    // Remove the local file if an error occurs during upload
+    fs.unlinkSync(localFilePath); // Remove the locally temporary file
+    return null;
+  }
+};
 
-    }
-}
-
-export { uploadOnCloudinary }
+export { uploadOnCloudinary }; // Export the uploadOnCloudinary function for use in other parts of the application
