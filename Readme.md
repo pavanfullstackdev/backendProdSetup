@@ -149,12 +149,9 @@ This is how we create a MongoDB database so that we can now connect it from our 
     ```
     
 
-# now creating a user model to register a user 
+### now creating a user model to register a user 
+### now creating a user controller to write the user realted functinality like register login logout.
+### create routes for the api  . for example /user/register
+### now test the api in postman
 
-1. Create a file `user.model.js` in the `models` folder.
-2. Import `mongoose` and `Schema` to create a user schema:
-3. Define and export the User schema to use it in our project and database:
-4. Write the fields we need to accept from the user:
-5. Pass an extra object called `timestamps: true` to get the `createdAt` and `updatedAt` fields automatically
- 
- ###### By following these steps, you will have a user model set up to register users in your application.
+

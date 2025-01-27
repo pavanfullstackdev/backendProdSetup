@@ -35,10 +35,14 @@ const userSchema = new Schema(
     refreshToken: {
       type: String,
     },
+    verifyOtP: { type: String, default: "" },
+    verifyOtpExpireAt: { type: Number, default: 0 },
+    isAccountVerified: { type: Boolean, default: false },
+    resetOtp: { type: String, default: "" },
+    resetOtpExpireAt: { type: Number, default: 0 },
   },
   { timestamps: true }
 );
-
 
 //Encrypt password before saving
 userSchema.pre("save", async function (next) {
@@ -56,31 +60,31 @@ userSchema.methods.isPasswordCorrect = async function (password) {
 
 //acces token generation
 userSchema.methods.generateAccessToken = function () {
-    return jwt.sign(
-      {
-        _id: this._id,
-        email: this.email,
-        username: this.username,
-        fullName: this.fullName,
-      },
-      process.env.ACCESS_TOKEN_SECRET,
-      {
-        expiresIn: process.env.ACCESS_TOKEN_EXPIRY,
-      }
-    );
-  };
-  
-  //refresh token generation
-  userSchema.methods.generateRefreshToken = function () {
-    return jwt.sign(
-      {
-        _id: this._id,
-      },
-      process.env.REFERESH_TOKEN_SECRET,
-      {
-        expiresIn: process.env.REFRESH_TOKEN_EXPIRY,
-      }
-    );
-  };
+  return jwt.sign(
+    {
+      _id: this._id,
+      email: this.email,
+      username: this.username,
+      fullName: this.fullName,
+    },
+    process.env.ACCESS_TOKEN_SECRET,
+    {
+      expiresIn: process.env.ACCESS_TOKEN_EXPIRY,
+    }
+  );
+};
 
-  export const User = mongoose.model("User", userSchema);
+//refresh token generation
+userSchema.methods.generateRefreshToken = function () {
+  return jwt.sign(
+    {
+      _id: this._id,
+    },
+    process.env.REFERESH_TOKEN_SECRET,
+    {
+      expiresIn: process.env.REFRESH_TOKEN_EXPIRY,
+    }
+  );
+};
+
+export const User = mongoose.model("User", userSchema);

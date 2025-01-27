@@ -1,6 +1,12 @@
 import { Router } from "express"; // Import Router from Express
-import { registerUser } from "../controllers/user.controller.js"; // Import the registerUser controller
+import {
+  registerUser,
+  loginUser,
+  logoutUser,
+  refereshAccessToken,
+} from "../controllers/user.controller.js"; // Import the registerUser controller
 import { upload } from "../middlewares/multer.middleware.js"; // Import the Multer middleware
+import { verifyJWT } from "../middlewares/auth.middleware.js";
 
 const router = Router(); // Create a new router instance
 
@@ -14,5 +20,9 @@ router.route("/register").post(
   ]),
   registerUser // Controller to handle the registration logic
 );
+router.route("/login").post(loginUser); // Define a route for user login
+
+router.route("/logout").post(verifyJWT, logoutUser);
+router.route("/refresh-token").post(refereshAccessToken);
 
 export default router; // Export the router for use in other parts of the application
